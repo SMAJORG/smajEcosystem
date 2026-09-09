@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover personalized opportunities to build, found, research, and partner with SMAJ Ecosystem.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Opportunity Engine | SMAJ Ecosystem">
+    <meta property="og:description" content="Match your skills and interests with opportunities across SMAJ ventures.">
+    <meta property="og:image" content="https://smaj.org/assets/images/logo.jpg">
+    <meta property="og:url" content="https://smaj.org/opportunities/">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://smaj.org/opportunities/">
+    <link rel="icon" type="image/png" href="/assets/images/logo.jpg">
+    <title>Opportunity Engine | SMAJ Ecosystem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+</head>
+<body>
+    <div class="preloader"><div class="preloader-logo"><img src="/assets/images/logo.jpg" alt="SMAJ Ecosystem Logo" class="preloader-logo-img"></div></div>
+    <header class="header">
+        <div class="header-container"><div class="header-inner">
+            <a href="/" class="logo-wrap"><img src="/assets/images/logo.jpg" alt="SMAJ Ecosystem Logo" class="logo"></a>
+            <nav class="nav-desktop" id="primary-navigation">
+                <a href="/" class="nav-link">Home</a><a href="/about/" class="nav-link">About</a><a href="/ventures/" class="nav-link">Ventures</a>
+                <a href="/opportunities/" class="nav-link active">Opportunities</a><a href="/partnerships/" class="nav-link">Partnerships</a>
+                <a href="/insights/" class="nav-link">Insights</a><a href="/news/" class="nav-link">News</a><a href="/contact/" class="nav-link">Contact</a>
+            </nav>
+            <a href="#matches" class="btn btn-nav-cta">Find My Match</a>
+            <button class="btn-menu-toggle" type="button" aria-expanded="false" aria-label="Toggle menu"><span class="icon-open">&#9776;</span><span class="icon-close">&times;</span></button>
+        </div></div>
+        <div class="mobile-menu-overlay"></div>
+        <nav class="mobile-menu">
+            <a href="/" class="mobile-nav-link">Home</a><a href="/about/" class="mobile-nav-link">About</a><a href="/ventures/" class="mobile-nav-link">Ventures</a>
+            <a href="/opportunities/" class="mobile-nav-link active">Opportunities</a><a href="/partnerships/" class="mobile-nav-link">Partnerships</a>
+            <a href="/insights/" class="mobile-nav-link">Insights</a><a href="/news/" class="mobile-nav-link">News</a><a href="/contact/" class="mobile-nav-link">Contact</a>
+        </nav>
+    </header>
+
+    <section class="opportunity-hero">
+        <div class="container opportunity-hero-grid">
+            <div>
+                <span class="application-kicker">SMAJ Opportunity Engine</span>
+                <h1>Find where you can build your greatest impact.</h1>
+                <p>Tell us what you can do and what you care about. Get transparent matches across SMAJ ventures, labs, and partnerships.</p>
+                <a href="#profile" class="btn btn-accent">Build My Match Profile</a>
+            </div>
+            <div class="opportunity-hero-panel" aria-label="How matching works">
+                <div><strong>01</strong><span>Add your skills and interests</span></div>
+                <div><strong>02</strong><span>See explainable match scores</span></div>
+                <div><strong>03</strong><span>Express interest directly</span></div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section id="profile" class="opportunity-profile-section">
+            <div class="container opportunity-profile-layout">
+                <div>
+                    <span class="application-kicker">Your SMAJ Identity</span>
+                    <h2>Build your matching profile</h2>
+                    <p data-profile-summary>Add your skills and interests to unlock personalized match scores.</p>
+                    <p class="opportunity-privacy"><i class="bx bx-shield-quarter"></i>Your profile stays in this browser until you express interest.</p>
+                </div>
+                <form class="opportunity-profile-form" data-match-profile>
+                    <div class="form-grid">
+                        <div class="form-group"><label for="matchName">Full name</label><input id="matchName" name="full_name" type="text" autocomplete="name" required></div>
+                        <div class="form-group"><label for="matchEmail">Email</label><input id="matchEmail" name="email" type="email" autocomplete="email" required></div>
+                        <div class="form-group form-wide"><label for="matchSkills">Skills</label><input id="matchSkills" name="skills" type="text" placeholder="JavaScript, research, strategy, design" required><small>Separate skills with commas.</small></div>
+                        <div class="form-group form-wide"><label for="matchInterests">Interests</label><input id="matchInterests" name="interests" type="text" placeholder="AI, fintech, marketplaces, startups" required><small>Separate interests with commas.</small></div>
+                        <div class="form-group"><label for="matchLocation">Work preference</label><select id="matchLocation" name="location_mode"><option value="any">Any</option><option value="remote">Remote</option><option value="hybrid">Hybrid</option><option value="onsite">On-site</option></select></div>
+                        <div class="form-group"><label for="matchGoal">I want to</label><select id="matchGoal" name="goal"><option value="any">Explore everything</option><option value="builder">Build products</option><option value="founder">Lead a venture</option><option value="research">Research ideas</option><option value="partner">Create a partnership</option></select></div>
+                    </div>
+                    <p class="application-status" data-profile-status aria-live="polite"></p>
+                    <button class="btn btn-primary" type="submit"><i class="bx bx-target-lock"></i> Calculate My Matches</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="matches" class="opportunity-results-section">
+            <div class="container">
+                <div class="section-header"><span class="application-kicker">Live Opportunities</span><h2>Your best places to contribute</h2><p>Scores explain why each opportunity fits you. The catalog remains available during service interruptions.</p></div>
+                <p class="application-status" data-opportunity-status aria-live="polite"></p>
+                <div class="opportunity-grid" data-opportunity-list><p>Loading opportunities...</p></div>
+            </div>
+        </section>
+
+        <section class="opportunity-interest-section" data-interest-section hidden>
+            <div class="container">
+                <div class="opportunity-interest-card">
+                    <div><span class="application-kicker">Express Interest</span><h2 data-selected-opportunity>Select an opportunity</h2><p>Send a short introduction. Your match profile will be included so the SMAJ team understands your fit.</p></div>
+                    <form data-interest-form>
+                        <div class="form-grid">
+                            <div class="form-group"><label for="interestName">Full name</label><input id="interestName" name="full_name" required></div>
+                            <div class="form-group"><label for="interestEmail">Email</label><input id="interestEmail" name="email" type="email" required></div>
+                            <div class="form-group form-wide"><label for="interestMessage">Why are you interested?</label><textarea id="interestMessage" name="message" required placeholder="Tell us what you would like to contribute or build."></textarea></div>
+                        </div>
+                        <p class="application-status" data-interest-status aria-live="polite"></p>
+                        <button class="btn btn-accent" type="submit">Send Interest</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer"><div class="container">
+        <div class="footer-grid">
+            <div class="footer-about"><div class="footer-logo"><img src="/assets/images/logo.jpg" alt="SMAJ Ecosystem Logo" class="logo"></div><p>Creating, building, partnering, and scaling future technology companies.</p></div>
+            <div class="footer-column"><h4>Explore</h4><ul class="footer-links"><li><a href="/ventures/">Ventures</a></li><li><a href="/opportunities/">Opportunities</a></li><li><a href="/partnerships/">Partnerships</a></li><li><a href="/news/">News</a></li></ul></div>
+            <div class="footer-column"><h4>Opportunity paths</h4><ul class="footer-links"><li><a href="/builder-application/">Builders</a></li><li><a href="/founder-application/">Founders</a></li><li><a href="/partner-application/">Partners</a></li></ul></div>
+            <div class="footer-column"><h4>Contact</h4><p><strong>Email:</strong> contact@smaj.org</p><p><strong>Location:</strong> Dubai, UAE</p></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 SMAJ Ecosystem. All rights reserved.</p><div class="footer-legal"><a href="/privacy-policy/">Privacy Policy</a><a href="/terms-of-service/">Terms of Service</a></div></div>
+    </div></footer>
+    <div class="scroll-top"><i class="bx bx-up-arrow-alt"></i></div>
+    <script src="/assets/js/main.js"></script><script src="/assets/js/navigation.js"></script><script src="/assets/js/env.js"></script><script type="module" src="/assets/js/opportunities.js"></script>
+</body>
+</html>

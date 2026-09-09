@@ -22,6 +22,7 @@ The ecosystem is built around four operating pillars:
 - **Home** - hero, ecosystem overview, venture-builder positioning, featured ventures, and insights.
 - **About** - mission, values, structure, and leadership.
 - **Ventures** - portfolio-style grid for SMAJ Ecosystem, Labs, Ventures, Partners, products, and future companies.
+- **Opportunity Engine** - privacy-first skill profiles, explainable opportunity matching, and resilient interest submissions.
 - **Partnerships** - founder, technology, and strategic partnership paths with dedicated application forms.
 - **Insights** - articles and updates about startup building, AI, innovation, and SMAJ's journey.
 - **News** - published SMAJ updates loaded from Supabase, with article detail pages and share metadata.
@@ -199,3 +200,8 @@ node scripts/generate-news-sitemap.mjs
 ```
 
 The SQL file also creates `public.get_news_sitemap()` for hosting setups that prefer reading sitemap rows directly from Supabase.
+
+
+## Opportunity Engine
+
+The /opportunities/ MVP matches browser-local member profiles against published Supabase opportunities. Apply supabase/migrations/20260909120000_create_opportunity_engine.sql before enabling live submissions. The page falls back to four bundled opportunities during an outage and queues failed interest submissions locally for retry. Only admins can read or manage submitted interest records.

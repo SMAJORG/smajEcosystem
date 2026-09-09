@@ -4,11 +4,34 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
+    initOpportunityNavigation();
     initMobileMenu();
     initHeaderScroll();
     initActiveNavigation();
 });
 
+function initOpportunityNavigation() {
+    const desktop = document.querySelector(".nav-desktop");
+    const mobile = document.querySelector(".mobile-menu");
+
+    if (desktop && !desktop.querySelector('[href="/opportunities/"]')) {
+        const link = document.createElement("a");
+        link.href = "/opportunities/";
+        link.className = "nav-link";
+        link.textContent = "Opportunities";
+        const partnership = desktop.querySelector('[href="/partnerships/"]');
+        desktop.insertBefore(link, partnership || null);
+    }
+
+    if (mobile && !mobile.querySelector('[href="/opportunities/"]')) {
+        const link = document.createElement("a");
+        link.href = "/opportunities/";
+        link.className = "mobile-nav-link";
+        link.textContent = "Opportunities";
+        const partnership = mobile.querySelector('[href="/partnerships/"]');
+        mobile.insertBefore(link, partnership || null);
+    }
+}
 /**
  * Mobile Menu Handler
  */
