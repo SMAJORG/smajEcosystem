@@ -1,6 +1,7 @@
 import { smajEnv } from "./env-module.js";
 import { supabaseClient } from "./supabase-client.js";
 import { showFeedbackPopup } from "./feedback.js";
+import { fallbackArticles } from "./news-fallback.js";
 
 const supabaseConfig = {
     table: smajEnv.SUPABASE_NEWS_TABLE || "news_articles"
@@ -10,24 +11,6 @@ const contentLabel = contentType === "insight" ? "insights" : "news";
 
 const defaultImage = "https://smaj.org/assets/images/logo.jpg";
 let loadedArticles = [];
-const fallbackArticles = [
-    {
-        id: "local-smaj-ecosystem-update",
-        title: "SMAJ Ecosystem News Is Being Updated",
-        slug: "smaj-ecosystem-news-update",
-        excerpt: "SMAJ Ecosystem news publishing is active, and the latest official updates will appear here as they are published.",
-        content: "SMAJ Ecosystem is preparing official updates, launch notes, community stories, and product announcements. Please check back soon for the latest published news from the team.",
-        featured_image: defaultImage,
-        category: "Ecosystem",
-        author: "SMAJ Team",
-        tags: ["SMAJ", "Ecosystem", "Updates"],
-        status: "published",
-        published_at: new Date().toISOString(),
-        seo_title: "SMAJ Ecosystem News",
-        seo_description: "Official SMAJ Ecosystem news and updates."
-    }
-];
-
 document.addEventListener("DOMContentLoaded", function () {
     const page = document.body.dataset.newsPage;
     document.querySelectorAll("[data-content-category]").forEach(function (button) {
@@ -50,8 +33,9 @@ async function loadNewsList() {
     try {
         const articles = await fetchPublishedArticles();
         if (!articles.length) {
-            setStatus(status, `No published ${contentLabel} yet.`, "info");
-            if (list) list.innerHTML = "";
+            loadedArticles = contentType === "news" ? fallbackArticles.map(normalizeArticle) : [];
+            setStatus(status, loadedArticles.length ? "Showing saved news while the live feed is empty." : `No published ${contentLabel} yet.`, "info");
+            renderArticleList();
             return;
         }
 
@@ -61,7 +45,7 @@ async function loadNewsList() {
     } catch (error) {
         console.error(error);
         const articles = contentType === "news" ? fallbackArticles.map(normalizeArticle) : [];
-        setStatus(status, `Could not load published ${contentLabel} right now.`, "error");
+        setStatus(status, articles.length ? "Showing saved news because the live feed is unavailable." : `Could not load published ${contentLabel} right now.`, articles.length ? "info" : "error");
         loadedArticles = articles;
         renderArticleList();
     }
@@ -103,6 +87,7 @@ async function loadNewsDetail() {
 
         if (error) throw error;
         if (!data) {
+            if (renderFallbackNewsDetail(status, articleContainer, relatedContainer, slug)) return;
             setStatus(status, "This article is not published or could not be found.", "error");
             return;
         }
@@ -132,8 +117,26 @@ async function loadNewsDetail() {
         }
     } catch (error) {
         console.error(error);
+        if (renderFallbackNewsDetail(status, articleContainer, relatedContainer, slug)) return;
         setStatus(status, "Could not load this article right now. Please try again later.", "error");
     }
+}
+
+function renderFallbackNewsDetail(status, articleContainer, relatedContainer, slug) {
+    if (contentType !== "news") return false;
+    const article = fallbackArticles.map(normalizeArticle).find(item => item.slug === slug);
+    if (!article) return false;
+
+    updateArticleMeta(article);
+    setStatus(status, "Showing a saved copy because the live feed is unavailable.", "info");
+    if (articleContainer) articleContainer.innerHTML = createArticleDetail(article);
+    if (relatedContainer) {
+        const related = fallbackArticles.map(normalizeArticle).filter(item => item.slug !== slug).slice(0, 3);
+        relatedContainer.innerHTML = related.length
+            ? related.map(createNewsCard).join("")
+            : '<p class="news-empty">No related articles yet.</p>';
+    }
+    return true;
 }
 
 async function fetchPublishedArticles(limit) {
