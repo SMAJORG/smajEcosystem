@@ -23,7 +23,9 @@ async function loadPublishedTeam() {
     }
 
     if (!data?.length) {
-        container.innerHTML = '<p class="team-load-message">New team profiles will be published soon.</p>';
+        // An empty or not-yet-configured backend must not remove the
+        // server-rendered team members from the About page.
+        updateCarouselControls();
         return;
     }
 
