@@ -1,4 +1,5 @@
 import { supabaseClient } from "./supabase-client.js";
+import { fallbackTeamMembers } from "./team-fallback.js";
 
 const socialIcons = {
     linkedin: "bxl-linkedin",
@@ -27,17 +28,19 @@ async function loadProfile() {
         .eq("is_published", true)
         .maybeSingle();
 
-    if (error || !member) {
-        if (error) console.error("Leadership profile load failed:", error);
+    if (error) console.error("Leadership profile load failed:", error);
+
+    const resolvedMember = member || fallbackTeamMembers.find(item => item.slug === slug);
+    if (!resolvedMember) {
         renderNotFound(container);
         return;
     }
 
-    renderProfile(container, member);
-    document.title = `${member.full_name} | SMAJ Ecosystem`;
+    renderProfile(container, resolvedMember);
+    document.title = `${resolvedMember.full_name} | SMAJ Ecosystem`;
     document.querySelector('meta[name="description"]')?.setAttribute(
         "content",
-        `${member.full_name}, ${member.job_title} at SMAJ Ecosystem.`
+        `${resolvedMember.full_name}, ${resolvedMember.job_title} at SMAJ Ecosystem.`
     );
 }
 
