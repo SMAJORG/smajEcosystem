@@ -892,3 +892,6 @@
         grid-template-columns: 1fr;
     }
 }
+
+body[data-admin-page="collaborators"] .admin-team-card-photo img,
+body[data-admin-page="collaborators"] .admin-team-photo-preview img { object-fit: contain; padding: 18px; }
