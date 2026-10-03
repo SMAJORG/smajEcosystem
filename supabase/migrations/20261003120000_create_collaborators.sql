@@ -63,3 +63,5 @@ using (bucket_id = 'collaborator-logos' and public.is_smaj_admin());
 insert into public.collaborators (name, logo_url, display_order, is_published)
 select 'Launch Collaborator', '/assets/images/collaborators/launch-partner.png', 1, true
 where not exists (select 1 from public.collaborators where name = 'Launch Collaborator');
+
+notify pgrst, 'reload schema';

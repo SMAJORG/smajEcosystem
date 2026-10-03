@@ -39,7 +39,13 @@ function bindLogout() {
 async function loadItems() {
     setStatus("[data-collaborator-status]", "Loading collaborators...", "info");
     const result = await supabaseClient.from(tableName).select("*").order("display_order").order("name");
-    if (result.error) { setStatus("[data-collaborator-status]", result.error.message, "error"); return; }
+    if (result.error) {
+        const message = result.error.code === "PGRST205" || /schema cache|could not find the table/i.test(result.error.message || "")
+            ? "Database setup required: run 20261003120000_create_collaborators.sql in Supabase SQL Editor, then refresh this page."
+            : result.error.message;
+        setStatus("[data-collaborator-status]", message, "error");
+        return;
+    }
     state.items = result.data || [];
     renderItems();
     document.querySelector("[data-count-all]").textContent = state.items.length;
@@ -130,7 +136,13 @@ async function deleteItem(id) {
     const item = state.items.find(function (value) { return value.id === id; });
     if (!item || !window.confirm("Delete " + item.name + "?")) return;
     const result = await supabaseClient.from(tableName).delete().eq("id", id);
-    if (result.error) { setStatus("[data-collaborator-status]", result.error.message, "error"); return; }
+    if (result.error) {
+        const message = result.error.code === "PGRST205" || /schema cache|could not find the table/i.test(result.error.message || "")
+            ? "Database setup required: run 20261003120000_create_collaborators.sql in Supabase SQL Editor, then refresh this page."
+            : result.error.message;
+        setStatus("[data-collaborator-status]", message, "error");
+        return;
+    }
     if (item.logo_path) await supabaseClient.storage.from(bucketName).remove([item.logo_path]);
     await loadItems();
 }
