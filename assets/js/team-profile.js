@@ -36,6 +36,14 @@ async function loadProfile() {
         return;
     }
 
+    if (resolvedMember.slug === "saleh-mala-ajimi") {
+        resolvedMember.social_links = {
+            ...resolvedMember.social_links,
+            x: "https://x.com/Devsmaj",
+            youtube: "https://www.youtube.com/@devsmaj"
+        };
+    }
+
     renderProfile(container, resolvedMember);
     document.title = `${resolvedMember.full_name} | SMAJ Ecosystem`;
     document.querySelector('meta[name="description"]')?.setAttribute(
