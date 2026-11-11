@@ -518,7 +518,7 @@ function normalizeMenuPath(path) {
 // Floating contact widget. Configure Telegram only with the verified private account.
 document.addEventListener('DOMContentLoaded', function initFloatingContact() {
     if (/^\/contact(?:\/|$|\.html)/.test(window.location.pathname)) return;
-    const telegramContactUsername = ''; // Verified private-contact username only.
+    const telegramContactUsername = 'SMAJEcosystemOfficial'; // Verified private-contact username only.
     const host = document.createElement('div');
     host.id = 'smaj-contact-widget';
     const root = host.attachShadow({ mode: 'open' });
