@@ -524,58 +524,32 @@ document.addEventListener('DOMContentLoaded', function initFloatingContact() {
     const root = host.attachShadow({ mode: 'open' });
     root.innerHTML = `
         <style>
-            :host { position: fixed; right: max(20px, env(safe-area-inset-right)); bottom: calc(88px + env(safe-area-inset-bottom)); z-index: 1000; font-family: Arial, sans-serif; color: #17212b; }
+            :host { position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: calc(96px + env(safe-area-inset-bottom)); z-index: 1000; display: flex; flex-direction: column; gap: 12px; }
             * { box-sizing: border-box; }
-            button, a { font: inherit; }
-            button { cursor: pointer; }
-            button:focus-visible, a:focus-visible { outline: 3px solid #17212b; outline-offset: 4px; }
-            .launcher { display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; margin-left: auto; border: 0; border-radius: 50%; background: #0088cc; color: white; box-shadow: 0 4px 16px #0003; }
-            svg { width: 29px; height: 29px; fill: currentColor; }
-            .panel { width: min(320px, calc(100vw - 40px)); max-height: calc(100dvh - 180px); overflow: auto; margin-bottom: 12px; padding: 22px; background: white; border: 1px solid #e4e9ee; border-radius: 14px; box-shadow: 0 8px 32px #0003; }
-            [hidden] { display: none; }
-            h2 { margin: 0 28px 12px 0; font-size: 18px; line-height: 1.4; }
-            p { margin: 0 0 18px; font-size: 14px; line-height: 1.6; }
-            .close { float: right; border: 0; background: transparent; color: #52616d; font-size: 24px; line-height: 24px; padding: 8px; margin: -8px -8px 0 0; min-width: 44px; min-height: 44px; }
-            .chat { display: block; width: 100%; padding: 12px; border: 0; border-radius: 8px; background: #0088cc; color: white; text-align: center; text-decoration: none; font-size: 14px; font-weight: 600; }
-            .call { margin-bottom: 10px; }
-            small { display: block; margin-top: 5px; font-size: 12px; font-weight: normal; }
-            .chat:disabled { opacity: .6; cursor: default; }
-            .status { margin: 12px 0 0; font-size: 12px; color: #52616d; }
+            .contact-icon { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; border: 0; border-radius: 50%; color: white; box-shadow: 0 3px 12px #0003; text-decoration: none; }
+            .contact-icon:focus-visible { outline: 3px solid #17212b; outline-offset: 4px; }
+            .call { background: #168744; }
+            .telegram { background: #0088cc; }
+            .telegram:disabled { cursor: not-allowed; }
+            svg { width: 26px; height: 26px; fill: currentColor; }
         </style>
-        <section class="panel" id="smaj-contact-panel" aria-labelledby="smaj-contact-title" hidden>
-            <button class="close" type="button" aria-label="Close contact options">×</button>
-            <h2 id="smaj-contact-title">SMAJ Ecosystem</h2>
-            <p>Welcome! How can we help you?</p>
-            <a class="chat call" href="tel:+14065059434">Call SMAJ <small>+1 406 505 9434</small></a>
-            <button class="chat telegram" type="button" disabled aria-describedby="telegram-status">Telegram Direct Message</button>
-            <p class="status" id="telegram-status">Direct chat will be available soon.</p>
-        </section>
-        <button class="launcher" type="button" aria-label="Open SMAJ contact options" aria-expanded="false" aria-controls="smaj-contact-panel">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H8l-6 4V5a2 2 0 0 1 2-2Zm2 5v2h12V8H6Zm0 5v2h8v-2H6Z"/></svg>
+        <a class="contact-icon call" href="tel:+14065059434" aria-label="Call SMAJ at +1 406 505 9434" title="Call SMAJ: +1 406 505 9434">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2Z"/></svg>
+        </a>
+        <button class="contact-icon telegram" type="button" disabled aria-label="Telegram private chat unavailable until verified" title="Telegram private chat unavailable until verified">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21.8 4.6-3.3 15.5c-.25 1.1-.9 1.37-1.82.85l-5.03-3.71-2.43 2.34c-.27.27-.5.5-1.03.5l.36-5.1 9.28-8.38c.4-.36-.09-.56-.62-.2L5.74 13.62.8 12.07c-1.08-.34-1.1-1.08.23-1.6L20.3 3.04c.9-.33 1.69.2 1.4 1.56Z"/></svg>
         </button>`;
-    const launcher = root.querySelector('.launcher');
-    const panel = root.querySelector('.panel');
-    const close = root.querySelector('.close');
-    function setOpen(open) {
-        panel.hidden = !open;
-        launcher.setAttribute('aria-expanded', String(open));
-        if (open) close.focus();
-        else launcher.focus();
-    }
-    launcher.addEventListener('click', () => setOpen(panel.hidden));
-    close.addEventListener('click', () => setOpen(false));
-    root.addEventListener('keydown', event => {
-        if (event.key === 'Escape' && !panel.hidden) setOpen(false);
-    });
     if (telegramContactUsername) {
+        const button = root.querySelector('.telegram');
         const chat = document.createElement('a');
-        chat.className = 'chat';
-        chat.textContent = 'Telegram Direct Message';
+        chat.className = button.className;
+        chat.innerHTML = button.innerHTML;
+        chat.setAttribute('aria-label', 'Message SMAJ privately on Telegram');
+        chat.title = 'Message SMAJ privately on Telegram';
         chat.href = `https://t.me/${encodeURIComponent(telegramContactUsername)}`;
         chat.target = '_blank';
         chat.rel = 'noopener noreferrer';
-        root.querySelector('.telegram').replaceWith(chat);
-        root.querySelector('.status').remove();
+        button.replaceWith(chat);
     }
     document.body.appendChild(host);
 
